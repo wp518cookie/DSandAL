@@ -161,6 +161,44 @@ public class MyLinkedList<AnyType> implements Iterable<AnyType> {
         }
     }
 
+    public void removeAll(Iterable<? extends AnyType> items) {
+        Iterator<? extends AnyType> it = items.iterator();
+        while (it.hasNext()) {
+            Iterator<? extends AnyType> thisIt = this.iterator();
+            while (thisIt.hasNext()) {
+                if (it.next().equals(thisIt.next())) {
+                    thisIt.remove();
+                    break;
+                }
+            }
+        }
+    }
+
+    //ex3.18
+    public void addFirst(AnyType x) {
+        addBefore(beginMarker.next, x);
+    }
+
+    public void addLast(AnyType x) {
+        addBefore(endMarker, x);
+    }
+
+    public void removeFirst() {
+        remove(beginMarker.next);
+    }
+
+    public void removeLast() {
+        remove(endMarker.prev);
+    }
+
+    public AnyType getFirst() {
+        return get(0);
+    }
+
+    public AnyType getLast() {
+        return get(size() - 1);
+    }
+
     public static void main(String[] args) {
         MyLinkedList<Integer> myLinkedList = new MyLinkedList();
         myLinkedList.add(1);

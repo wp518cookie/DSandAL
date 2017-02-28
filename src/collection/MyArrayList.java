@@ -1,6 +1,7 @@
 package collection;
 
 import java.util.Iterator;
+import java.util.ListIterator;
 import java.util.NoSuchElementException;
 
 /**
@@ -92,8 +93,50 @@ public class MyArrayList<AnyType> implements Iterable<AnyType> {
         return new ArrayListIterator();
     }
 
-    private class ArrayListIterator implements Iterator {
+    //ex3.13
+    public ListIterator listIterator() {
+        return new ArrayListIterator();
+    }
+
+    private class ArrayListIterator implements ListIterator<AnyType> {
         private int current = 0;
+        boolean backwards = false;
+
+        //belongs listIterator -----------------------------------------
+        @Override
+        public void set(AnyType x) {
+            theItems[current] = x;
+        }
+
+        @Override
+        public boolean hasPrevious() {
+            return current > 0;
+        }
+
+        @Override
+        public AnyType previous() {
+            if (!hasPrevious()) {
+                throw new java.util.NoSuchElementException();
+            }
+            backwards = true;
+            return theItems[--current];
+        }
+
+        @Override
+        public void add(AnyType x) {
+            MyArrayList.this.add(current++, x);
+        }
+
+
+        @Override
+        public int previousIndex() {
+            throw new UnsupportedOperationException();
+        }
+
+        @Override
+        public int nextIndex() {
+            throw new UnsupportedOperationException();
+        }
 
         @Override
         public boolean hasNext() {
@@ -112,15 +155,41 @@ public class MyArrayList<AnyType> implements Iterable<AnyType> {
         public void remove() {
             MyArrayList.this.remove(--current);
         }
+
+        //ex3.9
+        public void addAll(Iterable<? extends AnyType> items) {
+            Iterator<? extends AnyType> it = items.iterator();
+            while (it.hasNext()) {
+                add(it.next());
+            }
+        }
+    }
+    //ex3.16
+    public Iterator reverseIterator() {
+        return new ArrayListReverseIterator();
     }
 
+    private class ArrayListReverseIterator implements Iterator<AnyType> {
+        private int index = MyArrayList.this.theSize - 1;
+
+        @Override
+        public boolean hasNext() {
+            return index >= 0;
+        }
+
+        @Override
+        public AnyType next() {
+            return theItems[index--];
+        }
+    }
     public static void main(String[] args) {
         MyArrayList<Integer> list = new MyArrayList();
-        list.add(1);
-        list.add(2);
-        Iterator it = list.iterator();
+        for (int i = 0; i < 10; i++) {
+            list.add(i);
+        }
+        Iterator it = list.reverseIterator();
         while (it.hasNext()) {
-            System.out.println(it.next());
+            System.out.print(it.next() + " ");
         }
     }
 }

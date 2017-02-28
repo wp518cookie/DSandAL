@@ -149,13 +149,4 @@ public class exe3_4 {
         }
     }
 
-    public static <AnyType extends Comparable<? super AnyType>> void union(List<AnyType> L1, List<AnyType> L2, List<AnyType> result) {
-        ListIterator<AnyType> iterL1 = L1.listIterator();
-        ListIterator<AnyType> iterL2 = L2.listIterator();
-        AnyType itemL1 = null, itemL2 = null;
-        if (iterL1.hasNext()) {
-            itemL1 = iterL1.next();
-        }
-        while (itemL1 != null && itemL2)
-    }
 }
