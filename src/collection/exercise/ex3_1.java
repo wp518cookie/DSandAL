@@ -7,8 +7,8 @@ import java.util.*;
  */
 public class ex3_1 {
     public static void main(String[] args) {
-        List<Integer> L = Arrays.asList(1, 2, 3, 4, 5, 6, 7);
-        List<Integer> P = Arrays.asList(1, 3, 5, 7);
+        List<Integer> L = Arrays.asList(1, 3, 4, 5, 6, 7);
+        List<Integer> P = Arrays.asList(1, 3, 5);
         printLots(L, P);
     }
 
@@ -16,11 +16,15 @@ public class ex3_1 {
         Iterator<AnyType> itL = L.iterator();
         Iterator<Integer> itP = P.iterator();
         int idx = 0;
-        while (itL.hasNext() && itP.hasNext()) {
-            if (itP.next() == ++idx) {
-                System.out.print(itL.next() + " ");
-            } else {
-                itL.next();
+        while (itP.hasNext()) {
+            int position = itP.next();
+            while (itL.hasNext()) {
+                if (++idx < position) {
+                    itL.next();
+                } else {
+                    System.out.print(itL.next() + " ");
+                    break;
+                }
             }
         }
     }

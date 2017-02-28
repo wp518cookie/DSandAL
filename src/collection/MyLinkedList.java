@@ -1,5 +1,6 @@
 package collection;
 
+import java.util.Collection;
 import java.util.ConcurrentModificationException;
 import java.util.Iterator;
 import java.util.NoSuchElementException;
@@ -105,6 +106,18 @@ public class MyLinkedList<AnyType> implements Iterable<AnyType> {
         return p;
     }
 
+    public boolean contains(AnyType x) {
+        Node<AnyType> t = beginMarker.next;
+        while (t != endMarker) {
+            if (t.data.equals(x)) {
+                return true;
+            } else {
+                t = t.next;
+            }
+        }
+        return false;
+    }
+
     @Override
     public Iterator iterator() {
         return new LinkedListIterator();
@@ -152,6 +165,7 @@ public class MyLinkedList<AnyType> implements Iterable<AnyType> {
         MyLinkedList<Integer> myLinkedList = new MyLinkedList();
         myLinkedList.add(1);
         myLinkedList.add(2);
+        System.out.println(myLinkedList.contains(2));
         System.out.println(myLinkedList.get(2));
     }
 }
